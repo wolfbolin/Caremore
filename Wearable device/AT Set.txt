@@ -1,0 +1,25 @@
+UNO_OK
+UNO_ATI
+UNO_ATO
+
+
+SIM_OK
+SIM_ATD
+SIM_ATH
+SIM_ATA
+SIM_ATI = context
+
+
+SIM_PHO处理结果(指示高级处理层完成逻辑操作)
+RING		#Incoming
+NO DIALTONE	#Fail
+NO ANSWER	#Fail
+BUSY		#Close
+NO CARRIER	#Close
+
+SIM_STA处理结果(指示低级灯光控制层进行灯光控制)
+通话中		#On
+等待中		#Waiting
+断开		#Close
+
+SIM_NUM = Phone number(传递通话对象)
