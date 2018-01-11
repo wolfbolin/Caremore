@@ -1,2 +1,8 @@
+# Common ignores
+.zip
+
+
+# Below are files should be ignored for each people
+# ZBL
 _gsdata_/
 */_gsdata_/

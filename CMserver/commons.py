@@ -1,4 +1,0 @@
-
-PORT = 8088
-CACHE = "D:\\Cache"
-BYTEORDER = '>I'

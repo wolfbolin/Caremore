@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+                <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:layout_gravity="top">
+                        <LinearLayout
+                            android:background="#ebebeb"
+                            android:id="@+id/tab01"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:orientation="vertical"
+                            android:layout_gravity="right|top">
+                                <RelativeLayout
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="20dp"
+                                    android:background="#ffffff"
+                                    android:layout_width="380dp"
+                                    android:layout_height="180dp">
+                                        <LinearLayout
+                                            android:layout_centerHorizontal="true"
+                                            android:orientation="vertical"
+                                            android:layout_width="300dp"
+                                            android:layout_height="60dp">
+                                                <LinearLayout
+                                                    android:id="@+id/info_box1"
+                                                    android:gravity="center_horizontal"
+                                                    android:orientation="horizontal"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="30dp">
+                                                        <TextView
+                                                            android:textSize="20sp"
+                                                            android:text="您的孩子可能遇到 "
+                                                            android:textColor="@color/black"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content" />
+                                                        <TextView
+                                                            android:id="@+id/homepage_type"
+                                                            android:textColor="#FF631B"
+                                                            android:textSize="25sp"
+                                                            android:text="威胁"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content" />
+                                                        <TextView
+                                                            android:textSize="20sp"
+                                                            android:text="危险"
+                                                            android:textColor="@color/black"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content" />
+                                                </LinearLayout>
+                                                <LinearLayout
+                                                    android:id="@+id/info_box2"
+                                                    android:gravity="center"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="30dp">
+                                                        <TextView
+                                                            android:textSize="20sp"
+                                                            android:text="您可以收听录音后采取保护行动"
+                                                            android:textColor="@color/black"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="30dp" />
+                                                </LinearLayout>
+                                        </LinearLayout>
+                                        <TextView
+                                            android:id="@+id/no_inform"
+                                            android:textSize="25sp"
+                                            android:text="暂无危险通知"
+                                            android:layout_marginLeft="120dp"
+                                            android:layout_centerInParent="true"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content" />
+                                        <LinearLayout
+                                            android:layout_marginTop="60dp"
+                                            android:layout_centerHorizontal="true"
+                                            android:gravity="center_horizontal"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content">
+
+                                                <LinearLayout
+                                                    android:id="@+id/voice_box"
+                                                    android:background="@drawable/voice_circle"
+                                                    android:clickable="true"
+                                                    android:layout_width="100dp"
+                                                    android:layout_height="40dp">
+
+                                                        <ImageView
+                                                            android:id="@+id/voice"
+                                                            android:layout_marginLeft="20dp"
+                                                            android:layout_gravity="center_vertical"
+                                                            android:background="@null"
+                                                            android:src="@drawable/voice3"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content" />
+                                                </LinearLayout>
+                                                <LinearLayout
+                                                    android:layout_marginLeft="30dp"
+                                                    android:gravity="center_vertical"
+                                                    android:orientation="horizontal"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="40dp">
+                                                        <TextView
+                                                            android:textColor="#000"
+                                                            android:text="心率：80"
+                                                            android:textSize="15sp"
+                                                            android:id="@+id/homepage_heart"
+                                                            android:layout_width="wrap_content"
+                                                            android:layout_height="wrap_content" />
+                                                </LinearLayout>
+                                        </LinearLayout>
+                                        <LinearLayout
+                                            android:id="@+id/handle"
+                                            android:orientation="horizontal"
+                                            android:layout_marginTop="110dp"
+                                            android:gravity="center"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="60dp">
+                                                <Button
+                                                    android:background="#ff9303"
+                                                    android:id="@+id/btn_call"
+                                                    android:text="紧急呼叫"
+                                                    android:layout_width="70dp"
+                                                    android:layout_height="40dp" />
+
+                                                <Button
+                                                    android:id="@+id/mark_safe"
+                                                    android:text="标为安全"
+                                                    android:layout_marginLeft="80dp"
+                                                    android:background="#8dcb4d"
+                                                    android:layout_width="70dp"
+                                                    android:layout_height="40dp" />
+                                        </LinearLayout>
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_marginTop="20dp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_width="380dp"
+                                    android:layout_height="400dp">
+                                        <com.amap.api.maps2d.MapView
+                                            android:id="@+id/map"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent" >
+                                        </com.amap.api.maps2d.MapView>
+
+                                </RelativeLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/tab02"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:orientation="vertical"
+                            android:layout_gravity="center">
+                        </LinearLayout>
+                </FrameLayout>
+        </LinearLayout>
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom"/>
+</TabHost>

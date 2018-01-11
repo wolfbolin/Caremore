@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gray">
+    <LinearLayout
+        android:id="@+id/DeviceBinding"
+        android:layout_width="match_parent"
+        android:layout_height="120px"
+        android:clickable="true"
+        android:padding="20px"
+        android:layout_marginTop="25px"
+        android:background="@drawable/bg_white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  设备绑定"
+            android:textSize="35px"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/setting_safe"
+        android:layout_width="match_parent"
+        android:layout_height="120px"
+        android:clickable="true"
+        android:padding="20px"
+        android:layout_marginTop="30px"
+        android:background="@drawable/bg_white">
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  设置安全区域"
+            android:textSize="35px"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="120px"
+        android:clickable="true"
+        android:padding="20px"
+        android:layout_marginTop="30px"
+        android:background="@drawable/bg_white"
+        android:weightSum="1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  开启短信提醒"
+            android:textSize="35px"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="                                                     "/>
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:switchMinWidth="10dp"
+            android:textOn="  "
+            android:textOff="  "
+            android:thumb="@drawable/thumb"
+            android:track="@drawable/track"
+            android:checked="true" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="120px"
+        android:clickable="true"
+        android:padding="20px"
+        android:layout_marginTop="5px"
+        android:background="@drawable/bg_white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  开启设备"
+            android:textSize="35px"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="                                                             "/>
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:switchMinWidth="10dp"
+            android:textOn="  "
+            android:textOff="  "
+            android:thumb="@drawable/thumb"
+            android:track="@drawable/track"
+            android:checked="true"
+            android:layout_marginRight="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/history"
+        android:layout_width="match_parent"
+        android:layout_height="120px"
+        android:clickable="true"
+        android:padding="20px"
+        android:layout_marginTop="30px"
+        android:background="@drawable/bg_white">
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  历史记录"
+            android:textSize="35px"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/setting_about"
+        android:layout_width="match_parent"
+        android:layout_height="120px"
+        android:clickable="true"
+        android:padding="20px"
+        android:layout_marginTop="5px"
+        android:background="@drawable/bg_white">
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  关于CareMore"
+            android:textSize="35px"/>
+    </LinearLayout>
+    <LinearLayout
+    android:id="@+id/setting_IP"
+    android:layout_width="match_parent"
+    android:layout_height="120px"
+    android:clickable="true"
+    android:padding="20px"
+    android:layout_marginTop="5px"
+    android:background="@drawable/bg_white">
+    <TextView
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  设置服务器ip"
+        android:textSize="35px"/>
+</LinearLayout>
+    <Button
+        android:layout_width="700px"
+        android:layout_height="80px"
+        android:layout_gravity="center"
+        android:text="退出登录"
+        android:textColor="#ffffff"
+        android:textSize="50px"
+        android:layout_marginTop="80px"
+        android:background="@drawable/bg_red"/>
+</LinearLayout>
