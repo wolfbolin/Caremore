@@ -5,15 +5,22 @@ import random
 import socket
 import commons
 import requests
+import threading
 import multiprocessing
+from flask import Flask,jsonify,send_file, send_from_directory,g
 from socket_tools import recv_msg, send_msg
 from audio_service import audio_service
+
+refresh_json = ''
+info_json = ''
+send_success = False
 
 
 def IOT_service(stream_push, message_push):
     sock_manager = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock_manager.bind(('', commons.port_for_IOT))
     sock_manager.listen(10)
+    global info_json
     while True:
         print('[INFO] Waiting for IOT connection.')
         sock, addr = sock_manager.accept()
@@ -23,7 +30,7 @@ def IOT_service(stream_push, message_push):
                 json_msg = recv_msg(sock)
                 print('[INFO] Receive message from IOT.', json_msg)
                 if json_msg['Action'] == 'GPS':
-                    message_push.send(json_msg)
+                    info_json = json_msg
                 elif json_msg['Action'] == 'Audio':
                     stream_push.send(json_msg)
             except socket.error:
@@ -71,37 +78,64 @@ def stream_service(stream_pop, audio_in, message_push):
                 continue
 
 
+
+
+
 def phone_service(message_pop):
-    sock_manager = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock_manager.bind(('', commons.port_for_MI))
-    sock_manager.listen(10)
+    global refresh_json
+    global send_success
     while True:
-        print('[INFO] Waiting for phone connection.')
-        sock, addr = sock_manager.accept()
-        print('[INFO] Connect to phone', addr)
-        while True:
-            try:
-                json_msg = message_pop.recv()
-                send_msg(sock, json_msg)
-            except socket.error:
-                sock.close()
-                break
-        print('[INFO] Connection close from MI')
+        while send_success:
+            time.sleep(0.1)
+        json_msg = message_pop.recv()
+        send_success = True
+        refresh_json = json_msg
+
+
+http_app = Flask("caremore")
+
+
+@http_app.route('/confirm/<messageID>')
+def confirm(messageID):
+    global send_success
+    send_success = False
+    return jsonify({'Action': 'confirm', 'ID': messageID, 'Message': "success"})
+
+
+@http_app.route('/refresh')
+def refresh():
+    return jsonify(refresh_json)
+
+
+@http_app.route('/info')
+def info():
+    return jsonify(info_json)
+
+
+@http_app.route('/download/<file>')
+def download(file):
+    return send_from_directory(commons.cache, file, as_attachment=True)
 
 
 if __name__ == '__main__':
     (stream_push, stream_pop) = multiprocessing.Pipe()
     (audio_in, audio_out) = multiprocessing.Pipe()
     (message_push, message_pop) = multiprocessing.Pipe()
+
     process_IOT = multiprocessing.Process(target=IOT_service, args=(stream_push, message_push))
     process_audio = multiprocessing.Process(target=audio_service, args=(audio_out,))
     process_stream = multiprocessing.Process(target=stream_service, args=(stream_pop, audio_in, message_push))
-    process_phone = multiprocessing.Process(target=phone_service, args=(message_pop,))
+    # process_phone = multiprocessing.Process(target=phone_service, args=(message_pop,))
+
+    process_phone = threading.Thread(target=phone_service, args=(message_pop,))
 
     process_IOT.start()
     process_audio.start()
     process_stream.start()
+    # process_phone.start()
     process_phone.start()
+
+    http_app.run(host='0.0.0.0')
 
     process_IOT.join()
     process_audio.join()
