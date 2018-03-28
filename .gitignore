@@ -6,3 +6,5 @@
 # ZBL
 _gsdata_/
 */_gsdata_/
+doc/
+*.wav

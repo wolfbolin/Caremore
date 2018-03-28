@@ -80,8 +80,8 @@ if __name__ == "__main__":
     msg_manager = multiprocessing.Manager()
     serial_dict = msg_manager.dict()
     serial_dict['RATE'] = 96
-    serial_dict['LAT'] = 30527546
-    serial_dict['LNG'] = 114356625
+    serial_dict['LAT'] = 30527514
+    serial_dict['LNG'] = 114356599
     serial_dict['PHONE'] = commons.phone_number
     serial_dict['SIM_STA'] = 'Close'
     serial_dict['SIM_OK'] = False

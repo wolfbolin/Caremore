@@ -7,10 +7,10 @@ phone_pin = 22
 phone_number = "15570888042"
 
 server_IP = '192.168.80.201'
-server_port = 8080
+server_port = 12580
 server_addr = (server_IP, server_port)
 byte_order = '>I'
 
-second = 5
+second = 10
 
 cache = "cache/"

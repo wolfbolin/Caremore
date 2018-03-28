@@ -102,7 +102,8 @@ def sim_translator(sim_serial, serial_dict):
             elif recv == 'BUSY' or recv == 'NO CARRIER':
                 # Phone close
                 serial_dict['SIM_PHO'] = 'Close'
-            elif recv[0:4] == '+CLCC':
+            elif recv[0:5] == '+CLCC':
+                print("[INFO] Receive signal")
                 # Connect status update
                 AT = recv.split(',')
                 # To analysis the phone come from
