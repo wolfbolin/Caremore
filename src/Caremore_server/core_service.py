@@ -11,7 +11,7 @@ from flask import Flask,jsonify,send_file, send_from_directory,g
 from socket_tools import recv_msg, send_msg
 from audio_service import audio_service
 
-refresh_json = ''
+refresh_json = {"Status": "Test", "Message": "No data", "File": "20180328104521.wav"}
 info_json = ''
 send_success = False
 
@@ -78,9 +78,6 @@ def stream_service(stream_pop, audio_in, message_push):
                 continue
 
 
-
-
-
 def phone_service(message_pop):
     global refresh_json
     global send_success
@@ -95,11 +92,16 @@ def phone_service(message_pop):
 http_app = Flask("caremore")
 
 
-@http_app.route('/confirm/<messageID>')
-def confirm(messageID):
+@http_app.route('/status')
+def status():
+    return jsonify({'Action': 'status', 'Message': "server running"})
+
+
+@http_app.route('/confirm')
+def confirm():
     global send_success
     send_success = False
-    return jsonify({'Action': 'confirm', 'ID': messageID, 'Message': "success"})
+    return jsonify({'Action': 'confirm', 'Message': "success"})
 
 
 @http_app.route('/refresh')

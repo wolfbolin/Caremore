@@ -1,5 +1,5 @@
 byte_order = '>I'
-cache = 'cache/'
+cache = 'Cache/'
 
 port_for_IOT = 12580
 port_for_MI = 12306
