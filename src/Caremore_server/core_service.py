@@ -11,8 +11,8 @@ from flask import Flask,jsonify,send_file, send_from_directory,g
 from socket_tools import recv_msg, send_msg
 from audio_service import audio_service
 
-refresh_json = {"Status": "Test", "Message": "No data", "File": "20180328104521.wav", "ID": "20180328104521", "Type": "威胁", "Level": "3"}
-info_json = {"Status": "Test", "Lng": "112.991970", "Lat": "28.147384", "Heart": "96"}
+refresh_json = {"Action": "Danger", "Message": "No data", "File": "20180329035431.wav", "ID": "20180329035431", "Type": "威胁", "Level": "3", "Heart": "96", "Lng": "112.991970", "Lat": "28.147384"}
+info_json = {"Status": "Fail", "Lng": "112.991970", "Lat": "28.147384"}
 send_success = False
 
 
@@ -61,17 +61,17 @@ def stream_service(stream_pop, audio_in, message_push):
             print('[INFO] The result of DL', DL_json)
             if DL_json['itype'] == "1":
                 json_msg['Action'] = "Danger"
-                json_msg['Type'] = "1"
+                json_msg['Type'] = "诱导类语句"
                 json_msg['Level'] = DL_json['Level']
                 message_push.send(json_msg)
             elif DL_json['itype'] == "2":
                 json_msg['Action'] = "Danger"
-                json_msg['Type'] = "2"
+                json_msg['Type'] = "威胁恐吓类"
                 json_msg['Level'] = DL_json['Level']
                 message_push.send(json_msg)
             elif DL_json['itype'] == "3":
                 json_msg['Action'] = "Danger"
-                json_msg['Type'] = "3"
+                json_msg['Type'] = "暴力语言类"
                 json_msg['Level'] = DL_json['Level']
                 message_push.send(json_msg)
             else:

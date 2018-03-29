@@ -51,8 +51,9 @@
     <TextView
         android:id="@+id/tv_data"
         android:layout_width="350dp"
-        android:layout_height="200dp"
-        android:text="无数据" />
+        android:layout_height="100dp"
+        android:text="无数据"
+        android:textSize="8sp" />
 
     <Button
         android:id="@+id/bt_sure"

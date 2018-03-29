@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                             message_lat = jsonObj.getString("Lat");
                             message_lng = jsonObj.getString("Lng");
-                            message_heart = jsonObj.getString("Heart");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -129,15 +128,18 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             str_data_status.setText((String)msg.obj);
                             JSONObject jsonObj = new JSONObject((String)msg.obj);
-                            if(jsonObj.getString("Status").equals("Fail")){
-                                return;
+                            if(jsonObj.getString("Action").equals("Danger")){
+                                message_audio = jsonObj.getString("File");
+                                message_date = jsonObj.getString("ID");
+                                message_type = jsonObj.getString("Type");
+                                message_level = jsonObj.getString("Level");
+                                message_message = jsonObj.getString("Message");
+                                message_heart = jsonObj.getString("Heart");
+                                message_lat = jsonObj.getString("Lat");
+                                message_lng = jsonObj.getString("Lng");
+                                httpGetFile(str_url.getText().toString(), "/download/", jsonObj.getString("File"));
+                                Log.d("WB", "[INFO](main_thread)File download complete.");
                             }
-                            httpGetGile(str_url.getText().toString(), "/download/", jsonObj.getString("File"));
-                            message_audio = jsonObj.getString("File");
-                            message_date = jsonObj.getString("ID");
-                            message_type = jsonObj.getString("Type");
-                            message_level = jsonObj.getString("Level");
-                            message_message = jsonObj.getString("Message");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -214,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void httpGetGile(String url_header, String url_path,String filename) {
+    public void httpGetFile(String url_header, String url_path,String filename) {
         http_url = url_header+url_path+filename;
         file_url = Environment.getExternalStorageDirectory()+File.separator+filename;
         Thread httpThread = new http_download_thread();
