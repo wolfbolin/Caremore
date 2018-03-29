@@ -1,6 +1,7 @@
 package com.wolfbolin.caremore;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -29,9 +30,11 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
     private EditText str_url;
     private TextView str_http_status;
+    private TextView tv_info_status;
     private TextView str_data_status;
     private TextView str_sure_status;
     private Button but_check;
+    private Button but_info;
     private Button but_refresh;
     private Button but_sure;
     private Button but_show;
@@ -39,6 +42,14 @@ public class MainActivity extends AppCompatActivity {
     private Handler handler;
     private String http_url;
     private String file_url;
+    private String message_date;
+    private String message_type;
+    private String message_level;
+    private String message_heart;
+    private String message_message;
+    private String message_lng;
+    private String message_lat;
+    private String message_audio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +58,11 @@ public class MainActivity extends AppCompatActivity {
 
         str_url = (EditText) findViewById(R.id.tv_url);
         str_http_status = (TextView) findViewById(R.id.tv_url_status);
+        tv_info_status = (TextView) findViewById(R.id.tv_info_status);
         str_data_status = (TextView) findViewById(R.id.tv_data);
         str_sure_status = (TextView) findViewById(R.id.tv_sure_status);
         but_check = (Button) findViewById(R.id.bt_check);
+        but_info = (Button)findViewById(R.id.bt_info);
         but_refresh = (Button) findViewById(R.id.bt_refresh);
         but_sure = (Button) findViewById(R.id.bt_sure);
         but_show = (Button) findViewById(R.id.bt_show);
@@ -67,6 +80,32 @@ public class MainActivity extends AppCompatActivity {
                     }
                 };
                 httpGet(str_url.getText().toString(), "/status");
+            }
+        });
+        but_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            @SuppressLint("HandlerLeak")
+            public void onClick(View v) {
+                handler = null;
+                handler = new Handler() {
+                    public void handleMessage(Message msg) {
+                        super.handleMessage(msg);
+                        Log.d("WB", "[INFO](main_thread)Http response:" + msg.obj);
+                        try {
+                            tv_info_status.setText((String)msg.obj);
+                            JSONObject jsonObj = new JSONObject((String)msg.obj);
+                            if(jsonObj.getString("Status").equals("Fail")){
+                                return;
+                            }
+                            message_lat = jsonObj.getString("Lat");
+                            message_lng = jsonObj.getString("Lng");
+                            message_heart = jsonObj.getString("Heart");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                httpGet(str_url.getText().toString(), "/info");
             }
         });
         but_refresh.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +133,11 @@ public class MainActivity extends AppCompatActivity {
                                 return;
                             }
                             httpGetGile(str_url.getText().toString(), "/download/", jsonObj.getString("File"));
+                            message_audio = jsonObj.getString("File");
+                            message_date = jsonObj.getString("ID");
+                            message_type = jsonObj.getString("Type");
+                            message_level = jsonObj.getString("Level");
+                            message_message = jsonObj.getString("Message");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -120,7 +164,17 @@ public class MainActivity extends AppCompatActivity {
         but_show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                Intent intent = new Intent(MainActivity.this, ShowMessage.class);
+                intent.putExtra("date",message_date);
+                intent.putExtra("type",message_type);
+                intent.putExtra("level",message_level);
+                intent.putExtra("heart",message_heart);
+                intent.putExtra("message",message_message);
+                intent.putExtra("lat",message_lat);
+                intent.putExtra("lng",message_lng);
+                intent.putExtra("audio",message_audio);
+                intent.putExtra("audio_url", str_url.getText().toString()+"/player/");
+                startActivity(intent);
             }
         });
     }

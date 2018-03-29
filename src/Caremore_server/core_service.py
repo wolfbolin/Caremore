@@ -11,8 +11,8 @@ from flask import Flask,jsonify,send_file, send_from_directory,g
 from socket_tools import recv_msg, send_msg
 from audio_service import audio_service
 
-refresh_json = {"Status": "Test", "Message": "No data", "File": "20180328104521.wav"}
-info_json = ''
+refresh_json = {"Status": "Test", "Message": "No data", "File": "20180328104521.wav", "ID": "20180328104521", "Type": "威胁", "Level": "3"}
+info_json = {"Status": "Test", "Lng": "112.991970", "Lat": "28.147384", "Heart": "96"}
 send_success = False
 
 
@@ -117,6 +117,11 @@ def info():
 @http_app.route('/download/<file>')
 def download(file):
     return send_from_directory(commons.cache, file, as_attachment=True)
+
+
+@http_app.route('/player/<file>')
+def player(file):
+    return send_from_directory(commons.cache, file)
 
 
 if __name__ == '__main__':
